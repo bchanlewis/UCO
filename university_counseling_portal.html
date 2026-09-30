@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex High - University Counseling Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            800: '#312e81',
+                            900: '#1e1b4b',
+                        },
+                        accent: {
+                            500: '#0d9488',
+                            600: '#0f766e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Header -->
+    <header class="bg-brand-900 text-white shadow-lg sticky top-0 z-40 border-b border-indigo-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Branding -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('apply')">
+                    <div class="w-11 h-11 bg-gradient-to-tr from-brand-500 to-accent-500 rounded-xl flex items-center justify-center shadow-md">
+                        <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold tracking-tight text-white block">Apex High</span>
+                        <span class="text-xs text-indigo-200 font-medium tracking-wide uppercase block">University Counseling Hub</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button id="nav-apply" onclick="switchTab('apply')" class="px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-brand-800 text-white shadow-sm">
+                        <i data-lucide="compass" class="w-4 h-4 text-indigo-300"></i>
+                        <span>How to Apply (Year 12)</span>
+                    </button>
+                    <button id="nav-book" onclick="switchTab('book')" class="px-4 py-2.5 rounded-xl text-sm font-medium text-indigo-100 hover:text-white hover:bg-brand-800/60 transition-all duration-200 flex items-center space-x-2">
+                        <i data-lucide="calendar-check" class="w-4 h-4 text-indigo-300"></i>
+                        <span>Book a Counselor</span>
+                    </button>
+                    <button id="nav-resources" onclick="switchTab('resources')" class="px-4 py-2.5 rounded-xl text-sm font-medium text-indigo-100 hover:text-white hover:bg-brand-800/60 transition-all duration-200 flex items-center space-x-2">
+                        <i data-lucide="book-open" class="w-4 h-4 text-indigo-300"></i>
+                        <span>Research & Resources</span>
+                    </button>
+                    <button id="nav-finder" onclick="switchTab('finder')" class="px-4 py-2.5 rounded-xl text-sm font-medium text-indigo-100 hover:text-white hover:bg-brand-800/60 transition-all duration-200 flex items-center space-x-2">
+                        <i data-lucide="sliders" class="w-4 h-4 text-indigo-300"></i>
+                        <span>Uni Finder & Matcher</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-indigo-200 hover:text-white hover:bg-brand-800 focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-800 border-t border-brand-700 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('apply'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-white hover:bg-brand-700 flex items-center space-x-3">
+                <i data-lucide="compass" class="w-5 h-5 text-indigo-300"></i>
+                <span>How to Apply (Year 12)</span>
+            </button>
+            <button onclick="switchTab('book'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-indigo-100 hover:bg-brand-700 flex items-center space-x-3">
+                <i data-lucide="calendar-check" class="w-5 h-5 text-indigo-300"></i>
+                <span>Book a Counselor</span>
+            </button>
+            <button onclick="switchTab('resources'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-indigo-100 hover:bg-brand-700 flex items-center space-x-3">
+                <i data-lucide="book-open" class="w-5 h-5 text-indigo-300"></i>
+                <span>Research & Resources</span>
+            </button>
+            <button onclick="switchTab('finder'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-indigo-100 hover:bg-brand-700 flex items-center space-x-3">
+                <i data-lucide="sliders" class="w-5 h-5 text-indigo-300"></i>
+                <span>Uni Finder & Matcher</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Global Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: HOW TO APPLY (YEAR 12) -->
+        <section id="tab-apply" class="tab-content space-y-10">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-brand-900 via-brand-800 to-indigo-900 rounded-3xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+                    <i data-lucide="send" class="w-72 h-72"></i>
+                </div>
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold inline-block">Year 12 Roadmap</span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Your Complete Guide to University Applications</h1>
+                    <p class="text-indigo-100 text-base leading-relaxed">
+                        Welcome to your senior year! Stay organized with crucial application deadlines, direct portal gateways, and essential progress checklists.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Application Timeline -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-brand-100 text-brand-700 rounded-xl">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Year 12 Application Timeline</h2>
+                        <p class="text-sm text-slate-500">Key benchmarks throughout your senior academic year.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div class="w-2 h-full bg-amber-500 absolute left-0 top-0"></div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-md uppercase tracking-wider">Fall (Sep - Nov)</span>
+                            <i data-lucide="file-text" class="w-5 h-5 text-amber-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-3">Finalizing & Early Apps</h3>
+                        <ul class="space-y-2.5 text-sm text-slate-600">
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0 mt-0.5"></i> Finalize list (3 Safety, 3 Match, 2 Reach).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0 mt-0.5"></i> Request Teacher LORs (Letters of Recommendation).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0 mt-0.5"></i> Draft Personal Statements & Essays.</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-amber-500 mr-2 shrink-0 mt-0.5"></i> Submit Early Action/Decision & Oxbridge (Oct/Nov).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div class="w-2 h-full bg-blue-500 absolute left-0 top-0"></div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md uppercase tracking-wider">Winter (Dec - Feb)</span>
+                            <i data-lucide="send" class="w-5 h-5 text-blue-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-3">Regular Deadlines</h3>
+                        <ul class="space-y-2.5 text-sm text-slate-600">
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-blue-500 mr-2 shrink-0 mt-0.5"></i> Submit Regular Decision Applications (Jan 1-15).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-blue-500 mr-2 shrink-0 mt-0.5"></i> Submit UCAS equal consideration applications (Jan 31).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-blue-500 mr-2 shrink-0 mt-0.5"></i> Complete Financial Aid forms (FAFSA / CSS Profile).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-blue-500 mr-2 shrink-0 mt-0.5"></i> Send mid-year transcripts to universities.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                        <div class="w-2 h-full bg-emerald-500 absolute left-0 top-0"></div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md uppercase tracking-wider">Spring (Mar - May)</span>
+                            <i data-lucide="award" class="w-5 h-5 text-emerald-500"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-3">Decisions & Enrollment</h3>
+                        <ul class="space-y-2.5 text-sm text-slate-600">
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0 mt-0.5"></i> Receive decisions and financial aid offers.</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0 mt-0.5"></i> Attend offer-holder days & virtual tours.</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0 mt-0.5"></i> Submit final deposit by May 1 (National Decision Day).</li>
+                            <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mr-2 shrink-0 mt-0.5"></i> Finalize student visas and housing bookings.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Portals -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-brand-100 text-brand-700 rounded-xl">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Application Portals</h2>
+                        <p class="text-sm text-slate-500">Direct gateways for official regional application submission systems.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <a href="https://www.commonapp.org" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="landmark" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">Common Application</h4>
+                                <p class="text-xs text-slate-500">1000+ US & Global Unis</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+
+                    <a href="https://www.ucas.com" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="building-2" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">UCAS Portal</h4>
+                                <p class="text-xs text-slate-500">United Kingdom Applications</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+
+                    <a href="https://apply.universityofcalifornia.edu" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="sun" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">UC Application</h4>
+                                <p class="text-xs text-slate-500">University of California System</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+
+                    <a href="https://www.ouac.on.ca" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">OUAC System</h4>
+                                <p class="text-xs text-slate-500">Ontario, Canada Universities</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+
+                    <a href="https://www.hku.hk" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="building" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">Hong Kong Portals</h4>
+                                <p class="text-xs text-slate-500">HKU / HKUST Direct Portals</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+
+                    <a href="https://cssprofile.collegeboard.org" target="_blank" rel="noopener noreferrer" class="p-5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex justify-between items-center group">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center font-bold text-xl group-hover:bg-brand-500 group-hover:text-white transition-colors">
+                                <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition-colors">CSS Profile / FAFSA</h4>
+                                <p class="text-xs text-slate-500">Financial Aid Applications</p>
+                            </div>
+                        </div>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-brand-600"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Readiness Checklist -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-slate-100 gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">Year 12 Readiness Checklist</h3>
+                        <p class="text-sm text-slate-500">Track your progress. Progress automatically saves in your browser.</p>
+                    </div>
+                    <div class="bg-slate-100 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 flex items-center space-x-2">
+                        <span>Progress:</span>
+                        <span id="checklist-progress-text" class="text-brand-600 font-bold">0 / 6</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6" id="checklist-items">
+                    <!-- Dynamic Checklist Items rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: BOOK A COUNSELOR -->
+        <section id="tab-book" class="tab-content hidden space-y-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-slate-900">Meet Your Counseling Team</h1>
+                    <p class="text-slate-500 text-sm mt-1">Book a 1-on-1 session with our specialist advisors for personalized guidance.</p>
+                </div>
+                <button onclick="openBookingModal()" class="px-5 py-3 bg-brand-600 text-white rounded-xl font-semibold shadow-md hover:bg-brand-700 transition-all flex items-center space-x-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Quick Schedule Appointment</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="counselor-cards-container">
+                <!-- Dynamically populated via JavaScript -->
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Your Scheduled Sessions</h3>
+                    </div>
+                    <span id="appointment-count-badge" class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-full font-medium">0 Sessions</span>
+                </div>
+
+                <div id="appointments-list-container" class="space-y-3">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: USEFUL RESOURCES & RESEARCH TOOLS (UPDATED WITH ALL SPECIFIC LINKS) -->
+        <section id="tab-resources" class="tab-content hidden space-y-8">
+            <!-- Header & Filter Bar -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-accent-600 bg-teal-50 px-3 py-1 rounded-full">Curated Directory</span>
+                        <h1 class="text-3xl font-extrabold text-slate-900 mt-2">Counseling Resources & Links</h1>
+                        <p class="text-slate-500 text-sm mt-1">Explore official regional portals, career discovery platforms, statistics, and application guides.</p>
+                    </div>
+                    
+                    <!-- Search Input inside Resources -->
+                    <div class="relative w-full md:w-72">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                        <input type="text" id="resource-search-input" oninput="filterResources()" placeholder="Search resources or keywords..." class="w-full pl-9 pr-4 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+                    <button onclick="setResourceCategory('ALL')" id="res-cat-ALL" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 text-white transition-all">
+                        All Resources
+                    </button>
+                    <button onclick="setResourceCategory('country')" id="res-cat-country" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">
+                        Country Portals & Regional
+                    </button>
+                    <button onclick="setResourceCategory('career')" id="res-cat-career" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">
+                        Major & Career Exploration
+                    </button>
+                    <button onclick="setResourceCategory('writing')" id="res-cat-writing" class="res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">
+                        Writing, Guides & Archives
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resource Cards Grid -->
+            <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated via JavaScript using provided links -->
+            </div>
+        </section>
+
+        <!-- TAB 4: UNIVERSITY FINDER & MATCHER -->
+        <section id="tab-finder" class="tab-content hidden space-y-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center border-b border-slate-100 pb-6 mb-6 gap-4">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-brand-100 text-brand-700 text-xs px-2.5 py-1 rounded-full font-bold">CDS Benchmarks Enabled</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-bold">Smart Match Engine</span>
+                        </div>
+                        <h1 class="text-2xl font-extrabold text-slate-900 mt-2">University Finder & Matcher</h1>
+                        <p class="text-slate-500 text-sm">Input your scores and preferences to calculate Reach, Match, and Safety status using Common Data Set ranges.</p>
+                    </div>
+
+                    <button onclick="resetFilters()" class="px-4 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors flex items-center space-x-2">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        <span>Reset All Filters</span>
+                    </button>
+                </div>
+
+                <!-- Filters Form -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- SAT Score Input -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-700">SAT Score (400 - 1600)</label>
+                            <span id="sat-val-display" class="text-xs font-extrabold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">1380</span>
+                        </div>
+                        <input type="range" id="filter-sat" min="800" max="1600" step="10" value="1380" oninput="updateScoreLabels(); runUniversitySearch();" class="w-full accent-brand-600 cursor-pointer">
+                    </div>
+
+                    <!-- IB Score Input -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-700">IB Score (24 - 45 Points)</label>
+                            <span id="ib-val-display" class="text-xs font-extrabold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">37</span>
+                        </div>
+                        <input type="range" id="filter-ib" min="24" max="45" step="1" value="37" oninput="updateScoreLabels(); runUniversitySearch();" class="w-full accent-brand-600 cursor-pointer">
+                    </div>
+
+                    <!-- Search Keyword -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">University Name / Keyword</label>
+                        <div class="relative">
+                            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+                            <input type="text" id="filter-keyword" placeholder="e.g. Stanford, Toronto, Imperial" oninput="runUniversitySearch()" class="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Country Filter -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Country / Region</label>
+                        <select id="filter-country" onchange="runUniversitySearch()" class="w-full py-2 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+                            <option value="ALL">All Regions</option>
+                            <option value="USA">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Hong Kong">Hong Kong</option>
+                        </select>
+                    </div>
+
+                    <!-- Major Field -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Intended Major Field</label>
+                        <select id="filter-major" onchange="runUniversitySearch()" class="w-full py-2 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+                            <option value="ALL">All Majors</option>
+                            <option value="Computer Science">Computer Science & AI</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business & Economics</option>
+                            <option value="Pre-Med / Bio">Pre-Med & Biological Sciences</option>
+                            <option value="Arts & Humanities">Arts & Humanities</option>
+                            <option value="Social Sciences">Social Sciences</option>
+                        </select>
+                    </div>
+
+                    <!-- Campus Size -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Campus Size</label>
+                        <select id="filter-size" onchange="runUniversitySearch()" class="w-full py-2 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+                            <option value="ALL">Any Size</option>
+                            <option value="Small">Small (&lt; 5,000)</option>
+                            <option value="Medium">Medium (5,000 - 15,000)</option>
+                            <option value="Large">Large (&gt; 15,000)</option>
+                        </select>
+                    </div>
+
+                    <!-- Culture & Hobbies -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Campus Vibe / Culture</label>
+                        <select id="filter-culture" onchange="runUniversitySearch()" class="w-full py-2 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+                            <option value="ALL">Any Culture</option>
+                            <option value="Research Focus">Heavy Research Focus</option>
+                            <option value="Vibrant Athletics">NCAA / Athletics Focus</option>
+                            <option value="Urban Campus">Urban / City Immersion</option>
+                            <option value="Co-op Programs">Strong Co-op / Internship</option>
+                        </select>
+                    </div>
+
+                    <!-- Scholarship Availability -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-700">Scholarship / Aid Level</label>
+                        <select id="filter-scholarship" onchange="runUniversitySearch()" class="w-full py-2 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white">
+                            <option value="ALL">Any Financial Aid Model</option>
+                            <option value="Need-Blind Int">Need-Blind for International</option>
+                            <option value="Generous Aid">Generous Aid Packages</option>
+                            <option value="Full Merit">Full-Tuition Merit Scholarships</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Summary & University Cards -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center px-2">
+                    <span class="text-sm font-bold text-slate-700" id="results-count">Showing 0 universities</span>
+                    <div class="flex items-center space-x-3 text-xs font-medium">
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 mr-1.5"></span> Reach</span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-1.5"></span> Target Match</span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-1.5"></span> Safety</span>
+                    </div>
+                </div>
+
+                <div id="university-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-xs space-y-2">
+            <p>© 2026 Apex High School University Counseling Department. All Rights Reserved.</p>
+            <p class="text-slate-400">Common Data Set (CDS) ranges are compiled for counseling guidance. Check official university admissions websites for updated annual metrics.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE BOOKING MODAL -->
+    <div id="booking-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 relative border border-slate-100">
+            <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 p-2">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div>
+                <h3 class="text-2xl font-bold text-slate-900">Book Counseling Session</h3>
+                <p class="text-xs text-slate-500 mt-1">Select your preferred advisor, date, and discussion topic.</p>
+            </div>
+
+            <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Select Counselor</label>
+                    <select id="modal-counselor-select" class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Session Main Topic</label>
+                    <select id="modal-topic-select" class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        <option value="Essay Review & Brainstorming">Personal Statement & Essay Review</option>
+                        <option value="University List Shortlisting">University List & Reach/Safety Strategy</option>
+                        <option value="Financial Aid & Scholarships">Financial Aid & Scholarship Advice</option>
+                        <option value="General Check-in & Timeline">General Progress Check-in</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date</label>
+                        <input type="date" id="modal-date-input" required class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Time Slot</label>
+                        <select id="modal-time-select" class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="10:30 AM">10:30 AM</option>
+                            <option value="01:30 PM">01:30 PM</option>
+                            <option value="03:00 PM">03:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Name</label>
+                        <input type="text" id="modal-student-name" placeholder="e.g. Alex Chen" required class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">School Email</label>
+                        <input type="email" id="modal-student-email" placeholder="alex@apexschool.edu" required class="w-full py-2.5 px-3 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg transition-colors text-sm mt-2">
+                    Confirm Appointment
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // RESOURCE LINKS SPECIFICALLY REQUESTED
+        const resourceLinks = [
+            // Category: Country Portals & Regional
+            {
+                title: "Hong Kong Higher Ed Resources",
+                category: "country",
+                url: "https://www.hku.hk",
+                icon: "building-2",
+                badge: "Hong Kong",
+                description: "Official entry points, entrance requirements, and admissions portals for Hong Kong universities."
+            },
+            {
+                title: "Study in Holland",
+                category: "country",
+                url: "https://www.studyinholland.nl/",
+                icon: "globe",
+                badge: "Netherlands",
+                description: "Official guide to studying in the Netherlands, English-taught programs, and application rules."
+            },
+            {
+                title: "DAAD - Universities of Applied Sciences (HAW/FH)",
+                category: "country",
+                url: "https://www.daad.de/en/study-and-research-in-germany/plan-your-studies/universities-of-applied-sciences/",
+                icon: "landmark",
+                badge: "Germany",
+                description: "Official DAAD portal for practical and applied science universities across Germany."
+            },
+            {
+                title: "International Students in Germany",
+                category: "country",
+                url: "https://www.study-in-germany.de/en/",
+                icon: "graduation-cap",
+                badge: "Germany",
+                description: "Comprehensive step-by-step guide to starting your undergraduate studies in Germany."
+            },
+            {
+                title: "Studying Medicine in Ireland",
+                category: "country",
+                url: "https://docs.google.com/document/u/0/?ttof=true&pli=1",
+                icon: "stethoscope",
+                badge: "Ireland / Docs",
+                description: "Detailed guide on entry pathways, HPAT requirements, and medical school applications in Ireland."
+            },
+
+            // Category: Major & Career Exploration
+            {
+                title: "My Path To Uni – Your Passion, Your Path",
+                category: "career",
+                url: "https://mypathtouni.com",
+                icon: "compass",
+                badge: "Career Discovery",
+                description: "Interactive tools to connect your personal interests and academic strengths to university majors."
+            },
+            {
+                title: "Kudos Career Guidance",
+                category: "career",
+                url: "https://kudos.cascaid.co.uk",
+                icon: "briefcase",
+                badge: "Skills Assessment",
+                description: "Personalized career matching software to discover future job roles and higher education fields."
+            },
+            {
+                title: "My Next Move",
+                category: "career",
+                url: "https://www.mynextmove.org",
+                icon: "sparkles",
+                badge: "US Labor Data",
+                description: "Interactive task and career explorer sponsored by the U.S. Department of Labor."
+            },
+            {
+                title: "16Personalities Test & Advice",
+                category: "career",
+                url: "https://www.16personalities.com",
+                icon: "user-check",
+                badge: "Personality",
+                description: "Free personality test with deep insights on learning styles, career paths, and relationship dynamics."
+            },
+            {
+                title: "NCES College Navigator",
+                category: "career",
+                url: "https://nces.ed.gov/collegenavigator/",
+                icon: "search",
+                badge: "US Govt Data",
+                description: "Official US Federal tool for analyzing institutional costs, graduation rates, and major statistics."
+            },
+            {
+                title: "Executive Skills for Students",
+                category: "career",
+                url: "https://docs.google.com/document/u/0/",
+                icon: "brain",
+                badge: "Study Skills",
+                description: "Worksheet on building time-management, organization, and problem-solving skills for high school seniors."
+            },
+            {
+                title: "Beginning College Major Change Statistics",
+                category: "career",
+                url: "https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=2018434",
+                icon: "bar-chart-2",
+                badge: "NCES Research",
+                description: "Federal study examining how frequently undergraduate students change majors within 3 years."
+            },
+
+            // Category: Writing, Guides & Archives
+            {
+                title: "Personal Statement Helper",
+                category: "writing",
+                url: "https://docs.google.com/document/u/0/",
+                icon: "file-text",
+                badge: "Google Docs",
+                description: "Structured template with outline exercises for drafting compelling personal statements."
+            },
+            {
+                title: "UK / HK Style Personal Statement Guide",
+                category: "writing",
+                url: "https://docs.google.com/document/u/0/",
+                icon: "pen-tool",
+                badge: "Google Docs",
+                description: "Academic-focused essay framework tailored for UCAS, HKU, and European university requirements."
+            },
+            {
+                title: "UCAS Common Mistakes Guide",
+                category: "writing",
+                url: "https://docs.google.com/document/u/0/",
+                icon: "alert-triangle",
+                badge: "Google Docs",
+                description: "List of common application errors to avoid when submitting through the UK UCAS system."
+            },
+            {
+                title: "CIS UC Newsletter Archive",
+                category: "writing",
+                url: "https://drive.google.com/drive/u/0/",
+                icon: "folder",
+                badge: "Google Drive",
+                description: "Archived counseling newsletters, guest speaker slides, and university visit recordings."
+            },
+            {
+                title: "Presentations for the Classroom (Sutori)",
+                category: "writing",
+                url: "https://www.sutori.com",
+                icon: "presentation",
+                badge: "Sutori",
+                description: "Interactive timeline presentation tool used for classroom counseling sessions and workshops."
+            }
+        ];
+
+        // COUNSELOR DATA
+        const counselors = [
+            {
+                id: 'c1',
+                name: 'Dr. Sarah Jenkins',
+                role: 'Head of Counseling',
+                specialty: 'US Ivy League & Selective Admissions',
+                hours: 'Mon - Thu (09:00 - 15:00)',
+                avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
+                bio: '12+ years experience helping students gain entry into Top 20 US Universities and Ivy League institutions.'
+            },
+            {
+                id: 'c2',
+                name: 'Mr. David Miller',
+                role: 'UK & European Specialist',
+                specialty: 'UCAS, Oxbridge & Medicine',
+                hours: 'Tue - Fri (10:00 - 16:00)',
+                avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300',
+                bio: 'Specialist in UCAS personal statements, BMAT/UCAT prep, and Oxford/Cambridge admissions interviews.'
+            },
+            {
+                id: 'c3',
+                name: 'Ms. Elena Rostova',
+                role: 'Canada & Australia Specialist',
+                specialty: 'OUAC, UBC, & Engineering Programs',
+                hours: 'Mon, Wed, Fri (08:30 - 14:30)',
+                avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300',
+                bio: 'Expert in Canadian university systems, co-op pathways, and global merit scholarship applications.'
+            },
+            {
+                id: 'c4',
+                name: 'Mr. Kenneth Wong',
+                role: 'Asia-Pacific Specialist',
+                specialty: 'HKU, HKUST, NUS & Japan/Korea',
+                hours: 'Mon - Fri (11:00 - 17:00)',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300',
+                bio: 'Focuses on regional powerhouses across Hong Kong, Singapore, and international programs in Asia.'
+            }
+        ];
+
+        // UNIVERSITIES DATA WITH CDS RANGES
+        const universities = [
+            {
+                id: 'u1',
+                name: 'Stanford University',
+                country: 'USA',
+                location: 'Stanford, California',
+                admitRate: '3.9%',
+                satMin: 1500,
+                satMax: 1570,
+                ibAvg: 41,
+                size: 'Medium',
+                majors: ['Computer Science', 'Engineering', 'Business', 'Pre-Med / Bio'],
+                culture: 'Research Focus',
+                scholarships: 'Need-Blind Int',
+                link: 'https://admission.stanford.edu',
+                badge: 'US Ivy+'
+            },
+            {
+                id: 'u2',
+                name: 'University of Cambridge',
+                country: 'UK',
+                location: 'Cambridge, United Kingdom',
+                admitRate: '18.5%',
+                satMin: 1480,
+                satMax: 1560,
+                ibAvg: 42,
+                size: 'Medium',
+                majors: ['Engineering', 'Pre-Med / Bio', 'Arts & Humanities', 'Social Sciences'],
+                culture: 'Research Focus',
+                scholarships: 'Generous Aid',
+                link: 'https://www.undergraduate.study.cam.ac.uk',
+                badge: 'Oxbridge'
+            },
+            {
+                id: 'u3',
+                name: 'University of Toronto',
+                country: 'Canada',
+                location: 'Toronto, Ontario',
+                admitRate: '43.0%',
+                satMin: 1330,
+                satMax: 1480,
+                ibAvg: 36,
+                size: 'Large',
+                majors: ['Computer Science', 'Business', 'Engineering', 'Pre-Med / Bio'],
+                culture: 'Urban Campus',
+                scholarships: 'Full Merit',
+                link: 'https://future.utoronto.ca',
+                badge: 'Top Canada'
+            },
+            {
+                id: 'u4',
+                name: 'University of Hong Kong (HKU)',
+                country: 'Hong Kong',
+                location: 'Pokfulam, Hong Kong',
+                admitRate: '32.0%',
+                satMin: 1350,
+                satMax: 1490,
+                ibAvg: 37,
+                size: 'Large',
+                majors: ['Business', 'Pre-Med / Bio', 'Computer Science'],
+                culture: 'Urban Campus',
+                scholarships: 'Full Merit',
+                link: 'https://admissions.hku.hk',
+                badge: 'Asia Top 10'
+            },
+            {
+                id: 'u5',
+                name: 'Northeastern University',
+                country: 'USA',
+                location: 'Boston, Massachusetts',
+                admitRate: '6.8%',
+                satMin: 1430,
+                satMax: 1540,
+                ibAvg: 38,
+                size: 'Large',
+                majors: ['Computer Science', 'Business', 'Engineering'],
+                culture: 'Co-op Programs',
+                scholarships: 'Generous Aid',
+                link: 'https://www.northeastern.edu/admissions',
+                badge: 'Top Co-op'
+            },
+            {
+                id: 'u6',
+                name: 'University of Michigan',
+                country: 'USA',
+                location: 'Ann Arbor, Michigan',
+                admitRate: '17.7%',
+                satMin: 1350,
+                satMax: 1530,
+                ibAvg: 38,
+                size: 'Large',
+                majors: ['Business', 'Engineering', 'Social Sciences'],
+                culture: 'Vibrant Athletics',
+                scholarships: 'Generous Aid',
+                link: 'https://admissions.umich.edu',
+                badge: 'US Public Flagship'
+            },
+            {
+                id: 'u7',
+                name: 'Imperial College London',
+                country: 'UK',
+                location: 'London, United Kingdom',
+                admitRate: '15.2%',
+                satMin: 1450,
+                satMax: 1550,
+                ibAvg: 40,
+                size: 'Medium',
+                majors: ['Engineering', 'Computer Science', 'Pre-Med / Bio'],
+                culture: 'Research Focus',
+                scholarships: 'Generous Aid',
+                link: 'https://www.imperial.ac.uk/study/ug',
+                badge: 'STEM Leader'
+            },
+            {
+                id: 'u8',
+                name: 'Williams College',
+                country: 'USA',
+                location: 'Williamstown, Massachusetts',
+                admitRate: '7.5%',
+                satMin: 1420,
+                satMax: 1540,
+                ibAvg: 39,
+                size: 'Small',
+                majors: ['Arts & Humanities', 'Social Sciences', 'Pre-Med / Bio'],
+                culture: 'Research Focus',
+                scholarships: 'Need-Blind Int',
+                link: 'https://www.williams.edu/admissions',
+                badge: 'Top Liberal Arts'
+            }
+        ];
+
+        // CHECKLIST DATA
+        const checklistItems = [
+            { id: 'c1', text: 'Finalize top 8-10 university balanced list with counselor.' },
+            { id: 'c2', text: 'Confirm 2 Teacher Recommenders and send brag sheet.' },
+            { id: 'c3', text: 'Complete Main Common App Personal Statement Draft.' },
+            { id: 'c4', text: 'Order official High School Transcripts from school registrar.' },
+            { id: 'c5', text: 'Submit SAT/ACT official scores via College Board portal.' },
+            { id: 'c6', text: 'Submit CSS Profile / FAFSA financial aid documentation.' }
+        ];
+
+        // STATE MANAGEMENT
+        let activeAppointments = JSON.parse(localStorage.getItem('apex_appointments') || '[]');
+        let checklistState = JSON.parse(localStorage.getItem('apex_checklist') || '{}');
+        let currentResourceCategory = 'ALL';
+
+        window.onload = function() {
+            renderCounselors();
+            renderChecklist();
+            renderAppointments();
+            populateCounselorDropdown();
+            renderResources();
+            runUniversitySearch();
+            
+            // Re-initialize icons
+            lucide.createIcons();
+
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 3);
+            document.getElementById('modal-date-input').value = defaultDate.toISOString().split('T')[0];
+        };
+
+        // NAVIGATION SWITCHING
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.remove('hidden');
+
+            const navButtons = ['apply', 'book', 'resources', 'finder'];
+            navButtons.forEach(id => {
+                const btn = document.getElementById(`nav-${id}`);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = 'px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-brand-800 text-white shadow-sm';
+                    } else {
+                        btn.className = 'px-4 py-2.5 rounded-xl text-sm font-medium text-indigo-100 hover:text-white hover:bg-brand-800/60 transition-all duration-200 flex items-center space-x-2';
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // TAB 1 CHECKLIST
+        function renderChecklist() {
+            const container = document.getElementById('checklist-items');
+            container.innerHTML = '';
+
+            let completedCount = 0;
+
+            checklistItems.forEach(item => {
+                const isChecked = checklistState[item.id] || false;
+                if (isChecked) completedCount++;
+
+                const div = document.createElement('div');
+                div.className = `p-4 rounded-2xl border transition-all flex items-start space-x-3 cursor-pointer ${isChecked ? 'bg-indigo-50/50 border-brand-200' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}`;
+                div.onclick = () => toggleChecklistItem(item.id);
+
+                div.innerHTML = `
+                    <input type="checkbox" ${isChecked ? 'checked' : ''} class="mt-1 h-4 w-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500 pointer-events-none">
+                    <span class="text-sm font-medium ${isChecked ? 'line-through text-slate-400' : 'text-slate-700'}">${item.text}</span>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('checklist-progress-text').innerText = `${completedCount} / ${checklistItems.length}`;
+        }
+
+        function toggleChecklistItem(id) {
+            checklistState[id] = !checklistState[id];
+            localStorage.setItem('apex_checklist', JSON.stringify(checklistState));
+            renderChecklist();
+        }
+
+        // TAB 2 COUNSELOR BOOKING
+        function renderCounselors() {
+            const container = document.getElementById('counselor-cards-container');
+            container.innerHTML = '';
+
+            counselors.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <img src="${c.avatar}" alt="${c.name}" class="w-20 h-20 rounded-2xl object-cover shadow-sm">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-lg">${c.name}</h3>
+                            <p class="text-xs font-semibold text-brand-600">${c.role}</p>
+                            <p class="text-xs text-slate-400 mt-0.5"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>${c.hours}</p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Specialties</span>
+                            <p class="text-xs font-medium text-slate-700">${c.specialty}</p>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">${c.bio}</p>
+                    </div>
+                    <button onclick="openBookingModal('${c.id}')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold rounded-xl transition-colors">
+                        Book Session
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function populateCounselorDropdown() {
+            const select = document.getElementById('modal-counselor-select');
+            select.innerHTML = '';
+            counselors.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.name;
+                opt.innerText = `${c.name} (${c.role})`;
+                select.appendChild(opt);
+            });
+        }
+
+        function openBookingModal(counselorId) {
+            if (counselorId) {
+                const counselor = counselors.find(c => c.id === counselorId);
+                if (counselor) {
+                    document.getElementById('modal-counselor-select').value = counselor.name;
+                }
+            }
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            const counselor = document.getElementById('modal-counselor-select').value;
+            const topic = document.getElementById('modal-topic-select').value;
+            const date = document.getElementById('modal-date-input').value;
+            const time = document.getElementById('modal-time-select').value;
+            const student = document.getElementById('modal-student-name').value;
+
+            const newAppt = {
+                id: 'apt_' + Date.now(),
+                counselor,
+                topic,
+                date,
+                time,
+                student
+            };
+
+            activeAppointments.push(newAppt);
+            localStorage.setItem('apex_appointments', JSON.stringify(activeAppointments));
+
+            renderAppointments();
+            closeBookingModal();
+            showToast('Session booked successfully! Confirmation sent.', 'success');
+        }
+
+        function renderAppointments() {
+            const container = document.getElementById('appointments-list-container');
+            const badge = document.getElementById('appointment-count-badge');
+            container.innerHTML = '';
+
+            badge.innerText = `${activeAppointments.length} Session${activeAppointments.length === 1 ? '' : 's'}`;
+
+            if (activeAppointments.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-400 text-xs space-y-1">
+                        <i data-lucide="calendar" class="w-8 h-8 mx-auto text-slate-300"></i>
+                        <p class="font-medium">No appointments scheduled yet. Book a session with an advisor above.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            activeAppointments.forEach(apt => {
+                const item = document.createElement('div');
+                item.className = 'p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3';
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-sm">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">${apt.topic}</h4>
+                            <p class="text-xs text-slate-500">With <span class="font-semibold text-slate-700">${apt.counselor}</span> for ${apt.student}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 w-full sm:w-auto justify-between">
+                        <div class="text-right text-xs">
+                            <span class="font-bold text-brand-600 block">${apt.date}</span>
+                            <span class="text-slate-400">${apt.time}</span>
+                        </div>
+                        <button onclick="cancelAppointment('${apt.id}')" class="text-slate-400 hover:text-rose-500 text-sm p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+            lucide.createIcons();
+        }
+
+        function cancelAppointment(id) {
+            activeAppointments = activeAppointments.filter(a => a.id !== id);
+            localStorage.setItem('apex_appointments', JSON.stringify(activeAppointments));
+            renderAppointments();
+            showToast('Appointment canceled.', 'info');
+        }
+
+        // TAB 3 RESEARCH & RESOURCES RENDERING & FILTERING
+        function setResourceCategory(category) {
+            currentResourceCategory = category;
+            
+            // Update button styles
+            document.querySelectorAll('.res-cat-btn').forEach(btn => {
+                btn.className = 'res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all';
+            });
+            const activeBtn = document.getElementById(`res-cat-${category}`);
+            if (activeBtn) {
+                activeBtn.className = 'res-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 text-white transition-all';
+            }
+
+            renderResources();
+        }
+
+        function filterResources() {
+            renderResources();
+        }
+
+        function renderResources() {
+            const container = document.getElementById('resources-grid');
+            const query = document.getElementById('resource-search-input').value.toLowerCase().trim();
+            container.innerHTML = '';
+
+            const filtered = resourceLinks.filter(res => {
+                const matchesCategory = currentResourceCategory === 'ALL' || res.category === currentResourceCategory;
+                const matchesSearch = !query || res.title.toLowerCase().includes(query) || res.description.toLowerCase().includes(query) || res.badge.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-3xl border border-slate-200 p-8 space-y-2">
+                        <i data-lucide="search-x" class="w-10 h-10 text-slate-300 mx-auto"></i>
+                        <h3 class="font-bold text-slate-700">No resources found</h3>
+                        <p class="text-xs text-slate-500">Try clearing search terms or choosing a different category filter.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            filtered.forEach(res => {
+                const card = document.createElement('a');
+                card.href = res.url;
+                card.target = "_blank";
+                card.rel = "noopener noreferrer";
+                card.className = "bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md hover:border-brand-500 transition-all flex flex-col justify-between group";
+
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-start">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                                <i data-lucide="${res.icon}" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded-md uppercase tracking-wider">${res.badge}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm group-hover:text-brand-600 transition-colors flex items-center gap-1.5">
+                                <span>${res.title}</span>
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">${res.description}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-bold text-brand-600 group-hover:text-brand-700">
+                        <span>Access Resource</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"></i>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        // TAB 4 FINDER & MATCHER
+        function updateScoreLabels() {
+            document.getElementById('sat-val-display').innerText = document.getElementById('filter-sat').value;
+            document.getElementById('ib-val-display').innerText = document.getElementById('filter-ib').value;
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-sat').value = 1380;
+            document.getElementById('filter-ib').value = 37;
+            document.getElementById('filter-keyword').value = '';
+            document.getElementById('filter-country').value = 'ALL';
+            document.getElementById('filter-major').value = 'ALL';
+            document.getElementById('filter-size').value = 'ALL';
+            document.getElementById('filter-culture').value = 'ALL';
+            document.getElementById('filter-scholarship').value = 'ALL';
+            updateScoreLabels();
+            runUniversitySearch();
+        }
+
+        function runUniversitySearch() {
+            const sat = parseInt(document.getElementById('filter-sat').value);
+            const ib = parseInt(document.getElementById('filter-ib').value);
+            const keyword = document.getElementById('filter-keyword').value.toLowerCase().trim();
+            const country = document.getElementById('filter-country').value;
+            const major = document.getElementById('filter-major').value;
+            const size = document.getElementById('filter-size').value;
+            const culture = document.getElementById('filter-culture').value;
+            const scholarship = document.getElementById('filter-scholarship').value;
+
+            const filtered = universities.filter(u => {
+                if (keyword && !u.name.toLowerCase().includes(keyword) && !u.location.toLowerCase().includes(keyword)) return false;
+                if (country !== 'ALL' && u.country !== country) return false;
+                if (major !== 'ALL' && !u.majors.includes(major)) return false;
+                if (size !== 'ALL' && u.size !== size) return false;
+                if (culture !== 'ALL' && u.culture !== culture) return false;
+                if (scholarship !== 'ALL' && u.scholarships !== scholarship) return false;
+                return true;
+            });
+
+            renderUniversities(filtered, sat, ib);
+        }
+
+        function renderUniversities(list, sat, ib) {
+            const grid = document.getElementById('university-results-grid');
+            const countLabel = document.getElementById('results-count');
+            grid.innerHTML = '';
+
+            countLabel.innerText = `Showing ${list.length} target institution${list.length === 1 ? '' : 's'}`;
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-3xl border border-slate-200 p-8 space-y-3">
+                        <i data-lucide="building" class="w-10 h-10 text-slate-300 mx-auto"></i>
+                        <h3 class="font-bold text-slate-700">No matching universities found</h3>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Try broadening score sliders or selecting "All Regions".</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            list.forEach(u => {
+                let fitCategory = 'Match';
+                let fitBadgeColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+
+                if (sat < u.satMin || ib < (u.ibAvg - 2)) {
+                    fitCategory = 'Reach';
+                    fitBadgeColor = 'bg-rose-50 text-rose-700 border-rose-200';
+                } else if (sat > u.satMax && ib > u.ibAvg) {
+                    fitCategory = 'Safety / Target';
+                    fitBadgeColor = 'bg-blue-50 text-blue-700 border-blue-200';
+                }
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded border ${fitBadgeColor}">${fitCategory}</span>
+                                <h3 class="text-lg font-bold text-slate-900 mt-2">${u.name}</h3>
+                                <p class="text-xs text-slate-500"><i data-lucide="map-pin" class="w-3 h-3 inline mr-1 text-slate-400"></i>${u.location}</p>
+                            </div>
+                            <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">${u.badge}</span>
+                        </div>
+
+                        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 grid grid-cols-3 gap-2 text-center">
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Admit Rate</span>
+                                <span class="text-xs font-extrabold text-slate-800">${u.admitRate}</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">SAT Range</span>
+                                <span class="text-xs font-extrabold text-slate-800">${u.satMin}-${u.satMax}</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold block uppercase">Avg IB</span>
+                                <span class="text-xs font-extrabold text-slate-800">${u.ibAvg} pts</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex flex-wrap gap-1">
+                                ${u.majors.map(m => `<span class="bg-indigo-50 text-indigo-700 text-[10px] font-semibold px-2 py-0.5 rounded-md">${m}</span>`).join('')}
+                            </div>
+                            <div class="text-[11px] text-slate-500 space-y-1 pt-1">
+                                <div><i data-lucide="users" class="w-3.5 h-3.5 inline mr-1 text-slate-400"></i> <span class="font-medium">Size:</span> ${u.size}</div>
+                                <div><i data-lucide="compass" class="w-3.5 h-3.5 inline mr-1 text-slate-400"></i> <span class="font-medium">Vibe:</span> ${u.culture}</div>
+                                <div><i data-lucide="dollar-sign" class="w-3.5 h-3.5 inline mr-1 text-slate-400"></i> <span class="font-medium">Aid:</span> ${u.scholarships}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="${u.link}" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 bg-slate-900 hover:bg-brand-600 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center space-x-1 transition-colors">
+                        <span>Visit Admissions Portal</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                `;
+                grid.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const bgClass = type === 'success' ? 'bg-slate-900 text-white' : 'bg-brand-600 text-white';
+
+            toast.className = `${bgClass} px-4 py-3 rounded-xl shadow-xl text-xs font-semibold flex items-center space-x-2 pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0`;
+            toast.innerHTML = `
+                <i data-lucide="${type === 'success' ? 'check-circle' : 'info'}" class="w-4 h-4 text-emerald-400"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
